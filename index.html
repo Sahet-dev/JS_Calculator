@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JS Calculator</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+  </head>
+  <body>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js">
+    </script>
+
+
+
+<script type="text/javascript">
+
+let trailingCalculator = 0;
+let operation = ['divide', 'multiple', 'subtract', 'add'];
+let currentOperation = "";
+
+  function updateNumber(number){
+    let display = document.getElementById("display");
+
+
+    if (display.innerHTML === "0" && operation.indexOf(number) === -1) {
+      if (number === "decimal") {
+        display.innerHTML = "0.";
+      } else {
+        display.innerHTML = number;
+      }
+
+    }
+
+    else if (operation.indexOf(number) >= 0 ) {
+      console.log('diling wiz opertator ');
+
+      if (currentOperation === "") {
+        currentOperation = number;
+        trailingCalculator = display.innerHTML;
+        display.innerHTML = 0;
+      }
+      else {
+        console.log(display.innerHTML, "dealing with set operand");
+        trailingCalculator = calculate(trailingCalculator, display.innerHTML, currentOperation);
+        secondaryDisplay.innerHTML = trailingCalculator;
+        display.innerHTML = 0;
+        currentOperation=number;
+      }
+
+
+    } else if (number === "equals") {
+      display.innerHTML = calculate(trailingCalculator, display.innerHTML, currentOperation);
+      trailingCalculator = display.innerHTML;
+      currentOperation="";
+    }
+    else if (number === "decimal") {
+      console.log("decimal clicked");
+      if (display.innerHTML.indexOf(".") === -1) {
+        display.innerHTML += ".";
+      }
+    }
+    else{
+      display.innerHTML += number;
+    }
+
+  }
+
+  function clearNumber(){
+    let display = document.getElementById("display");
+    display.innerHTML = 0;
+  }
+
+
+function calculate(firstInput, secondInput, operationInput){
+  let result;
+ firstInput = parseFloat(firstInput);
+ secondInput = parseFloat(secondInput);
+  switch(operationInput) {
+  case "add":
+    result = firstInput + secondInput;
+    break;
+  case "subtract":
+      result = firstInput - secondInput;
+    break;
+  case "multiple":
+        result = firstInput * secondInput;
+    break;
+
+  case "divide":
+      result = firstInput / secondInput;
+    break;
+  default:
+    // code block
+}
+return result.toString();
+}
+</script>
+
+
+
+
+
+        <div className="container-fluid">
+          <div class="">
+              <div class="bg-info text-center text-white my-3 py-5" id="display" placeholder="0"></div>
+              <div class="bg-secondary text-center text-white my-3 py-5" id="secondaryDisplay" placeholder="0"></div>
+
+              <div class="col-xs-4 col-sm-4 col-md-4 mx-auto">
+                  <div class="btn btn-danger p-4 mx-auto col-3" onClick="clearNumber()" id="clear">C</div>
+                  <div class="btn btn-primary p-4 mx-auto" onClick="updateNumber('divide')" id="divide">/</div>
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber('multiple')" id="multiply">x</div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 mx-auto">
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber(7)" id="seven">7</div>
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber(8)" id="eight">8</div>
+                  <div class="btn btn-primary p-4 mx-auto" onClick="updateNumber(9)" id="nine">9</div>
+                  <div class="btn btn-primary p-4 mx-auto" onClick="updateNumber('subtract')"  id="subtract">-</div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 mx-auto">
+                  <div class="btn  btn-primary p-4 mx-auto m-1" onClick="updateNumber(4)" id="four">4</div>
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber(5)" id="five">5</div>
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber(6)" id="six">6</div>
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber('add')" id="add">+</div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 mx-auto">
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber(1)" id="one">1</div>
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber(2)" id="two">2</div>
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber(3)" id="three">3</div>
+                  <div class="btn  btn-primary p-4  mx-auto" onClick="updateNumber('equals')" id="equals">=</div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 mx-auto">
+
+
+                  <div class="btn  btn-primary p-4 mx-auto col-4" onClick="updateNumber(0)" id="zero">0</div>
+                  <div class="btn  btn-primary p-4 mx-auto" onClick="updateNumber('decimal')" id="decimal">.</div>
+                </div>
+          </div>
+
+        </div>
+  </body>
+</html>
