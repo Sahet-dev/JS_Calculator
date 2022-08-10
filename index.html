@@ -41,7 +41,7 @@ let currentOperation = "";
     }
 
     else if (operation.indexOf(number) >= 0 ) {
-      console.log('diling wiz opertator ');
+      console.log('check opertator ');
 
       if (currentOperation === "") {
         currentOperation = number;
@@ -49,7 +49,7 @@ let currentOperation = "";
         display.innerHTML = 0;
       }
       else {
-        console.log(display.innerHTML, "dealing with set operand");
+        console.log(display.innerHTML, "check set operand");
         trailingCalculator = calculate(trailingCalculator, display.innerHTML, currentOperation);
         secondaryDisplay.innerHTML = trailingCalculator;
         display.innerHTML = 0;
